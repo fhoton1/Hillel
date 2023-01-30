@@ -1,0 +1,17 @@
+---
+- name: Home Task 14
+  hosts: all
+  become: yes
+  tasks:
+  - name: Uninstall nginx and docker
+    ansible.builtin.apt:
+      name: 
+      - nginx
+      - docker.io
+      state: absent
+      
+  - name: Create new user in docker group
+    ansible.builtin.user:
+      name: hoton
+      state: absent
+      remove: yes

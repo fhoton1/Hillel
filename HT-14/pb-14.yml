@@ -1,0 +1,30 @@
+---
+- name: Home Task 14
+  hosts: all
+  become: yes
+  tasks:
+  
+  - name: Install nginx and docker
+    ansible.builtin.apt:
+      name: 
+      - nginx
+      - docker.io
+      state: present
+      update_cache: yes
+
+  - name: Create new user in docker group
+    ansible.builtin.user:
+      name: hoton
+      state: present
+      #password: ! #empty password
+      password: "{{ '1' | password_hash('sha512') }}"
+      group: docker
+  
+  - name: Number Nginx
+    shell:
+      cmd: nginx -v
+    register: nginx_version
+
+  - name: info about Nginx
+    ansible.builtin.debug:
+      msg: "{{ nginx_version.stderr }}"
