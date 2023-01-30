@@ -21,6 +21,7 @@
       group: docker
   
   - name: Number Nginx
+    #ansible.builtin.shell #playbook isn't working
     shell:
       cmd: nginx -v
     register: nginx_version
